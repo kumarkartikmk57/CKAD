@@ -1,0 +1,8 @@
+{{ -with }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $.Values.configmapName.redis.name }}
+data:
+  # property-like keys; each key maps to a simple value
+  port: 6379

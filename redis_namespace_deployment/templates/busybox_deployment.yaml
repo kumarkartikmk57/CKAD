@@ -1,0 +1,23 @@
+{{- with .Values.isdeploymentrequired }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: {{ $.Values.image.name}}
+   {{ if $.Values.namespace.isnamespacerequired  }}namespace: {{ $.Values.namespace.name }}{{ else }}namespace: default{{ end }}
+   labels:
+     app: {{ $.Values.image.name }}
+spec:
+  replicas: {{ $.Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ $.Values.image.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ $.Values.image.name }}
+    spec:
+      containers:
+      - name: {{ $.Values.image.name }}
+        image: {{ $.Values.image.repository }}:{{ $.Chart.AppVersion }}
+{{- end -}}
+
